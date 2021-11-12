@@ -8,6 +8,7 @@ import Reviews from '../tabs/Reviews';
 import Lists from '../tabs/Lists';
 
 import color from '../utils/colors';
+import colors from '../utils/colors';
 
 const renderScene = SceneMap({
   first: Films,
@@ -41,8 +42,8 @@ const Popular = () => {
       renderScene={renderScene}
       renderTabBar={renderTabBar}
       onIndexChange={setIndex}
-      sceneContainerStyle={styles.sceen}
       initialLayout={{width}}
+      style={styles.tabView}
     />
   );
 };
@@ -50,10 +51,9 @@ const Popular = () => {
 export default Popular;
 
 const styles = StyleSheet.create({
-  sceen: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   tabBar: {backgroundColor: color.secondary},
   indicator: {backgroundColor: color.ligthGreen, height: 4},
+  tabView: {
+    backgroundColor: colors.primary,
+  },
 });

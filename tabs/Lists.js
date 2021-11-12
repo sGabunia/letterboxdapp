@@ -3,12 +3,22 @@ import {StyleSheet, Text, View} from 'react-native';
 
 const Lists = () => {
   return (
-    <View>
-      <Text>Lists</Text>
+    <View style={styles.wrapper}>
+      <Text style={styles.text}>Lists</Text>
     </View>
   );
 };
 
 export default Lists;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    color: '#fff',
+    fontSize: 20,
+  },
+});

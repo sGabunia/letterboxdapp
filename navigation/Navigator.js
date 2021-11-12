@@ -18,18 +18,17 @@ import color from '../utils/colors';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import PopularMoviesNavigator from './PopularMoviesNavigator';
 
 const Drawer = createDrawerNavigator();
 
 const Navigator = () => {
   return (
     <NavigationContainer>
-      <Drawer.Navigator
-        initialRouteName={PopularScreen}
-        screenOptions={styles.drawer}>
+      <Drawer.Navigator screenOptions={styles.drawer}>
         <Drawer.Screen
           name="Popular"
-          component={PopularScreen}
+          component={PopularMoviesNavigator}
           options={{
             drawerIcon: () => <Ionicons name="star" size={25} color="#fff" />,
           }}

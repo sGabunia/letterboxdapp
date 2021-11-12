@@ -1,13 +1,14 @@
 import React from 'react';
-import Navigator from "./navigation/Navigator"
-
+import Navigator from './navigation/Navigator';
+import {Provider} from 'react-redux';
+import store from './app/store';
 
 const App = () => {
   return (
-   <Navigator />
+    <Provider store={store}>
+      <Navigator />
+    </Provider>
   );
 };
 
 export default App;
-
-

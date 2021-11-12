@@ -3,12 +3,22 @@ import {StyleSheet, Text, View} from 'react-native';
 
 const News = () => {
   return (
-    <View>
-      <Text>films</Text>
+    <View style={styles.wrapper}>
+      <Text style={styles.text}>News</Text>
     </View>
   );
 };
 
 export default News;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    color: '#fff',
+    fontSize: 20,
+  },
+});
