@@ -1,18 +1,21 @@
 import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import PopularScreen from '../screens/PopularScreen';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
-const Stack = createNativeStackNavigator();
+import Films from '../tabs/Films';
+import Lists from '../tabs/Lists';
+import News from '../tabs/News';
+import Reviews from '../tabs/Reviews';
+
+const Tab = createMaterialTopTabNavigator();
 
 const PopularMoviesNavigator = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="PopularMovies"
-        component={PopularScreen}
-        options={{headerShown: false}}
-      />
-    </Stack.Navigator>
+    <Tab.Navigator>
+      <Tab.Screen name="FILMS" component={Films} />
+      <Tab.Screen name="LISTS" component={Lists} />
+      <Tab.Screen name="NEWS" component={News} />
+      <Tab.Screen name="REVIEWS" component={Reviews} />
+    </Tab.Navigator>
   );
 };
 

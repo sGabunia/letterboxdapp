@@ -8,7 +8,7 @@ import Gallery from '../components/Gallery';
 import GalleryItemLoader from '../components/GalleryItemLoader';
 import {fetchPopularMovies} from '../features/movies/popularMoviesSlice';
 
-const FilmsScreen = () => {
+const FilmsScreen = props => {
   const dispatch = useDispatch();
   const {movies, status, error} = useSelector(
     ({popularMovies}) => popularMovies,
@@ -33,7 +33,11 @@ const FilmsScreen = () => {
       {isLoading ? (
         <GalleryItemLoader />
       ) : (
-        <Gallery title="Popular this week" movies={movies} />
+        <Gallery
+          title="Popular this week"
+          movies={movies}
+          navigation={props.navigation}
+        />
       )}
     </View>
   );

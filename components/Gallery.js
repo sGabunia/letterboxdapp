@@ -1,15 +1,22 @@
 import React from 'react';
+import {useDispatch} from 'react-redux';
+
 import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+import {fetchMovieDetails} from '../features/movies/movieDetailsSlice';
 
-const Gallery = ({title, movies}) => {
-  const handleItemClick = id => {
-    console.log(id);
+const Gallery = ({title, movies, navigation}) => {
+  const dispatch = useDispatch();
+  const handleItemClick = movie => {
+    navigation.navigate('MovieDetails', {
+      title: movie.original_title,
+      itemId: movie.id,
+    });
   };
 
   const renderItem = ({item}) => {
     return (
-      <TouchableWithoutFeedback onLongPress={() => handleItemClick(item.id)}>
+      <TouchableWithoutFeedback onPress={() => handleItemClick(item)}>
         <Image
           source={{uri: `https://image.tmdb.org/t/p/w500${item.backdrop_path}`}}
           style={styles.image}

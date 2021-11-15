@@ -10,8 +10,32 @@ const getPopularMovies = async () => {
   return response.data;
 };
 
+const getMovieDetails = async movie_id => {
+  const response = await axios.get(
+    `${BASE_URL}movie/${movie_id}?api_key=${apiKey}&language=en-US`,
+  );
+  return response.data;
+};
+
+const getMovieCast = async movie_id => {
+  const response = await axios.get(
+    `${BASE_URL}movie/${movie_id}/credits?api_key=${apiKey}&language=en-US`,
+  );
+  return response.data;
+};
+
+const getMovieReviews = async movie_id => {
+  const response = await axios.get(
+    `${BASE_URL}movie/${movie_id}/reviews?api_key=${apiKey}&language=en-US`,
+  );
+  return response.data;
+};
+
 const getMovies = {
   getPopularMovies,
+  getMovieDetails,
+  getMovieCast,
+  getMovieReviews,
 };
 
 export default getMovies;

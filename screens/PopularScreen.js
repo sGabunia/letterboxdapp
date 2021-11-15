@@ -17,7 +17,7 @@ const renderScene = SceneMap({
   fourth: News,
 });
 
-const Popular = () => {
+const Popular = ({navigation}) => {
   const [index, setIndex] = useState(0);
   const {width} = useWindowDimensions();
 
@@ -28,22 +28,27 @@ const Popular = () => {
     {key: 'fourth', title: 'NEWS'},
   ]);
 
-  const renderTabBar = props => (
-    <TabBar
-      {...props}
-      indicatorStyle={styles.indicator}
-      style={styles.tabBar}
-    />
-  );
+  const renderTabBar = props => {
+    console.log(props);
+    return (
+      <TabBar
+        {...props}
+        navigation={navigation}
+        indicatorStyle={styles.indicator}
+        style={styles.tabBar}
+      />
+    );
+  };
 
   return (
     <TabView
       navigationState={{index, routes}}
       renderScene={renderScene}
-      renderTabBar={renderTabBar}
+      renderTabBar={props => renderTabBar}
       onIndexChange={setIndex}
       initialLayout={{width}}
       style={styles.tabView}
+      navigation={navigation}
     />
   );
 };
