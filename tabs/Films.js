@@ -7,6 +7,7 @@ import {StyleSheet, View} from 'react-native';
 import Gallery from '../components/Gallery';
 import GalleryItemLoader from '../components/GalleryItemLoader';
 import {fetchPopularMovies} from '../features/movies/popularMoviesSlice';
+import colors from '../utils/colors';
 
 const FilmsScreen = props => {
   const dispatch = useDispatch();
@@ -46,5 +47,10 @@ const FilmsScreen = props => {
 export default FilmsScreen;
 
 const styles = StyleSheet.create({
-  wrapper: {paddingHorizontal: 10, marginTop: 100},
+  wrapper: {
+    flex: 1,
+    paddingHorizontal: 10,
+    paddingTop: 100,
+    backgroundColor: colors.primary,
+  },
 });

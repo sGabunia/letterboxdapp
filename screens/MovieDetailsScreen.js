@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchMovieDetails} from '../features/movies/movieDetailsSlice';
-import {StyleSheet, Text, View} from 'react-native';
+import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
 import Movie from '../components/Movie';
-import GalleryItemLoader from '../components/GalleryItemLoader';
+import colors from '../utils/colors';
 
 const MovieDetailsScreen = ({route, navigation}) => {
   const dispatch = useDispatch();
@@ -25,9 +25,22 @@ const MovieDetailsScreen = ({route, navigation}) => {
   }
 
   if (isLoading) {
-    return <GalleryItemLoader />;
+    return (
+      <View style={styles.wrapper}>
+        <ActivityIndicator color="#fff" />
+      </View>
+    );
   }
   return <Movie movie={movie} />;
 };
 
 export default MovieDetailsScreen;
+
+const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.primary,
+  },
+});

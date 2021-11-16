@@ -1,12 +1,9 @@
 import React from 'react';
-import {useDispatch} from 'react-redux';
 
 import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
-import {fetchMovieDetails} from '../features/movies/movieDetailsSlice';
 
 const Gallery = ({title, movies, navigation}) => {
-  const dispatch = useDispatch();
   const handleItemClick = movie => {
     navigation.navigate('MovieDetails', {
       title: movie.original_title,
