@@ -20,7 +20,9 @@ const MovieHeader = ({movieDetails, director}) => {
             <View style={styles.movie}>
               <AppHeaderText>{movieDetails.original_title}</AppHeaderText>
               <AppMainText style={styles.role}>Directed by</AppMainText>
-              <AppMainText style={styles.director}>{director.name}</AppMainText>
+              <AppMainText style={styles.director}>
+                {director?.name}
+              </AppMainText>
               <View style={styles.row}>
                 <AppMainText>
                   {movieDetails.release_date.slice(0, 4)}

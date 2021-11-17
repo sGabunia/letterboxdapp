@@ -31,11 +31,19 @@ const getMovieReviews = async movie_id => {
   return response.data;
 };
 
+const getTopRated = async category => {
+  const response = await axios.get(
+    `${BASE_URL}${category}/top_rated?api_key=${apiKey}&language=en-US&page=1`,
+  );
+  return response.data;
+};
+
 const getMovies = {
   getPopularMovies,
   getMovieDetails,
   getMovieCast,
   getMovieReviews,
+  getTopRated,
 };
 
 export default getMovies;

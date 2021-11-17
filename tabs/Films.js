@@ -2,10 +2,12 @@ import React, {useEffect} from 'react';
 
 import {useSelector, useDispatch} from 'react-redux';
 
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 
 import Gallery from '../components/Gallery';
 import GalleryItemLoader from '../components/GalleryItemLoader';
+import Categories from '../components/Categories';
+
 import {fetchPopularMovies} from '../features/movies/popularMoviesSlice';
 import colors from '../utils/colors';
 
@@ -34,11 +36,15 @@ const FilmsScreen = props => {
       {isLoading ? (
         <GalleryItemLoader />
       ) : (
-        <Gallery
-          title="Popular this week"
-          movies={movies}
-          navigation={props.navigation}
-        />
+        <>
+          <Gallery
+            title="Popular this week"
+            movies={movies}
+            navigation={props.navigation}
+          />
+          <Categories title="Top Rated Movies" category="movie" />
+          <Categories title="Top Rated TV Series" category="tv" />
+        </>
       )}
     </View>
   );
