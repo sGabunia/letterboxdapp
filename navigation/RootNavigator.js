@@ -6,6 +6,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import DrawerNavigator from './DrawerNavigator';
 import MovieDetailsScreen from '../screens/MovieDetailsScreen';
+import TvShowDetailsScreen from '../screens/TvShowDetailsScreen';
 import CategoriesScreen from '../screens/CategoriesScreen';
 
 import colors from '../utils/colors';
@@ -24,6 +25,16 @@ const RootNavigator = () => {
         <Stack.Screen
           name="MovieDetails"
           component={MovieDetailsScreen}
+          options={({route}) => ({
+            title: route.params.title,
+            headerStyle: styles.header,
+            headerTitleStyle: styles.title,
+            headerTintColor: '#fff',
+          })}
+        />
+        <Stack.Screen
+          name="TvShowDetails"
+          component={TvShowDetailsScreen}
           options={({route}) => ({
             title: route.params.title,
             headerStyle: styles.header,

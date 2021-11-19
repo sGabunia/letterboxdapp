@@ -34,4 +34,6 @@ const popularMoviesSlice = createSlice({
   },
 });
 
+export const selectPopularMovies = ({popularMovies}) => popularMovies;
+
 export default popularMoviesSlice.reducer;

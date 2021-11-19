@@ -8,14 +8,15 @@ import Gallery from '../components/Gallery';
 import GalleryItemLoader from '../components/GalleryItemLoader';
 import Categories from '../components/Categories';
 
-import {fetchPopularMovies} from '../features/movies/popularMoviesSlice';
+import {
+  fetchPopularMovies,
+  selectPopularMovies,
+} from '../features/movies/popularMoviesSlice';
 import colors from '../utils/colors';
 
 const FilmsScreen = props => {
   const dispatch = useDispatch();
-  const {movies, status, error} = useSelector(
-    ({popularMovies}) => popularMovies,
-  );
+  const {movies, status, error} = useSelector(selectPopularMovies);
 
   useEffect(() => {
     dispatch(fetchPopularMovies());
@@ -26,7 +27,7 @@ const FilmsScreen = props => {
   if (status === 'failed') {
     return (
       <View>
-        <Text>Loading error</Text>
+        <Text>{error}</Text>
       </View>
     );
   }

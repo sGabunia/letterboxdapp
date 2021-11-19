@@ -12,7 +12,7 @@ import {
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import {fetchTopRated} from '../features/movies/topRatedSlice';
+import {fetchTopRated, selectTopRated} from '../features/movies/topRatedSlice';
 import colors from '../utils/colors';
 
 import AppHeaderText from '../components/Text/AppHeaderText';
@@ -21,17 +21,19 @@ import AppMainText from '../components/Text/AppMainText';
 const CategoriesScreen = ({route, navigation}) => {
   const dispatch = useDispatch();
   const {category} = route.params;
-  const {moviesAndShows, status, error} = useSelector(({topRated}) => topRated);
+  const {moviesAndShows, status, error} = useSelector(selectTopRated);
 
   useEffect(() => {
     dispatch(fetchTopRated(category));
-  }, [category]);
+  }, [category, dispatch]);
   console.log(category);
+
+  const screenSelect = category === 'movie' ? 'MovieDetails' : 'TvShowDetails';
 
   const isLoading = status === 'idle' || status === 'loading';
 
   const handleNavigate = (itemId, title) => {
-    navigation.navigate('MovieDetails', {
+    navigation.navigate(screenSelect, {
       itemId,
       title,
     });
@@ -51,9 +53,10 @@ const CategoriesScreen = ({route, navigation}) => {
         data={moviesAndShows}
         renderItem={({item}) => {
           const releaseYear = item.release_date || item.first_air_date;
+          const title = item.name || item.title;
           return (
             <TouchableWithoutFeedback
-              onPress={() => handleNavigate(item.id, item.original_title)}>
+              onPress={() => handleNavigate(item.id, title)}>
               <View style={styles.movie}>
                 <Image
                   source={{

@@ -10,10 +10,11 @@ const initialState = {
 export const fetchMovieDetails = createAsyncThunk(
   'movie/fetchMovieDetails',
   async id => {
+    console.log('fetch');
     const movieDetails = await getMovies.getMovieDetails(id);
     const movieCast = await getMovies.getMovieCast(id);
     const movieReviews = await getMovies.getMovieReviews(id);
-
+    console.log(movieDetails);
     return {
       movieDetails,
       movieCast,
@@ -42,5 +43,7 @@ const movieDetailsSlice = createSlice({
       });
   },
 });
+
+export const selectMovieDetails = state => state.movieDetails;
 
 export default movieDetailsSlice.reducer;

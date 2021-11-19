@@ -11,9 +11,11 @@ const getPopularMovies = async () => {
 };
 
 const getMovieDetails = async movie_id => {
+  console.log('details');
   const response = await axios.get(
     `${BASE_URL}movie/${movie_id}?api_key=${apiKey}&language=en-US`,
   );
+  console.log(response);
   return response.data;
 };
 

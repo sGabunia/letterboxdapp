@@ -1,6 +1,9 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {fetchMovieDetails} from '../features/movies/movieDetailsSlice';
+import {
+  fetchMovieDetails,
+  selectMovieDetails,
+} from '../features/movies/movieDetailsSlice';
 import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
 import Movie from '../components/Movie';
 import colors from '../utils/colors';
@@ -8,18 +11,18 @@ import colors from '../utils/colors';
 const MovieDetailsScreen = ({route, navigation}) => {
   const dispatch = useDispatch();
   const {itemId} = route.params;
-  const {movie, status, error} = useSelector(state => state.movieDetails);
+  const {movie, status, error} = useSelector(selectMovieDetails);
 
   useEffect(() => {
     dispatch(fetchMovieDetails(itemId));
-  }, [itemId]);
+  }, [dispatch, itemId]);
 
   const isLoading = status === 'idle' || status === 'loading';
 
   if (status === 'failed') {
     return (
       <View>
-        <Text>Loading error</Text>
+        <Text>{error}</Text>
       </View>
     );
   }

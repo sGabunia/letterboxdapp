@@ -34,4 +34,10 @@ const topRatedSlice = createSlice({
   },
 });
 
+export const selectTopRated = ({topRated}) => topRated;
+export const selectDetails =
+  id =>
+  ({topRated}) =>
+    topRated.moviesAndShows.find(item => item.id === id);
+
 export default topRatedSlice.reducer;
