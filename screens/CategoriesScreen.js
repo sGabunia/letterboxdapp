@@ -56,6 +56,38 @@ const CategoriesScreen = ({route, navigation}) => {
     );
   };
 
+  const renderItem = ({item}) => {
+    const releaseYear = item.release_date || item.first_air_date;
+    const title = item.name || item.title;
+    return (
+      <TouchableWithoutFeedback onPress={() => handleNavigate(item.id, title)}>
+        <View style={styles.movie}>
+          <Image
+            source={{
+              uri: item.backdrop_path
+                ? `https://image.tmdb.org/t/p/w500${item.backdrop_path}`
+                : `https://via.placeholder.com/300`,
+            }}
+            resizeMode="cover"
+            style={styles.image}
+          />
+          <View style={styles.movieContent}>
+            <AppHeaderText style={styles.movieTitle}>
+              {item.title || item.name}
+            </AppHeaderText>
+            <AppMainText style={styles.year}>
+              {releaseYear.slice(0, 4)}
+            </AppMainText>
+            <AppMainText>
+              <Ionicons name="star" size={18} color="yellow" />{' '}
+              {item.vote_average}
+            </AppMainText>
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+    );
+  };
+
   if (isLoading) {
     return (
       <View style={styles.isLoading}>
@@ -68,41 +100,11 @@ const CategoriesScreen = ({route, navigation}) => {
     <View style={styles.wrapper}>
       <FlatList
         data={moviesAndShows}
+        remove
         onEndReached={() => loadMoreData(index)}
         ListFooterComponent={renderLoadMore()}
         initialNumToRender={20}
-        renderItem={({item}) => {
-          const releaseYear = item.release_date || item.first_air_date;
-          const title = item.name || item.title;
-          return (
-            <TouchableWithoutFeedback
-              onPress={() => handleNavigate(item.id, title)}>
-              <View style={styles.movie}>
-                <Image
-                  source={{
-                    uri: item.backdrop_path
-                      ? `https://image.tmdb.org/t/p/w500${item.backdrop_path}`
-                      : `https://via.placeholder.com/300`,
-                  }}
-                  resizeMode="cover"
-                  style={styles.image}
-                />
-                <View style={styles.movieContent}>
-                  <AppHeaderText style={styles.movieTitle}>
-                    {item.title || item.name}
-                  </AppHeaderText>
-                  <AppMainText style={styles.year}>
-                    {releaseYear.slice(0, 4)}
-                  </AppMainText>
-                  <AppMainText>
-                    <Ionicons name="star" size={18} color="yellow" />{' '}
-                    {item.vote_average}
-                  </AppMainText>
-                </View>
-              </View>
-            </TouchableWithoutFeedback>
-          );
-        }}
+        renderItem={renderItem}
       />
     </View>
   );
