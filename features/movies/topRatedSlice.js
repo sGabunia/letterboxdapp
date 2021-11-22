@@ -5,12 +5,22 @@ const initialState = {
   moviesAndShows: [],
   status: 'idle',
   error: null,
+  loadMoreStatus: 'idle',
+  loadMoreError: null,
 };
 
 export const fetchTopRated = createAsyncThunk(
   'topRated/fetchTopRated',
-  async category => {
+  async ({category}) => {
     const response = await getMovies.getTopRated(category);
+    return response.results;
+  },
+);
+
+export const loadMoreTopRated = createAsyncThunk(
+  'topRated/loadMoreTopRated',
+  async ({category, index}) => {
+    const response = await getMovies.getTopRated(category, index);
     return response.results;
   },
 );
@@ -30,9 +40,22 @@ const topRatedSlice = createSlice({
       .addCase(fetchTopRated.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
+      })
+      .addCase(loadMoreTopRated.pending, (state, action) => {
+        state.loadMoreStatus = 'loading';
+      })
+      .addCase(loadMoreTopRated.fulfilled, (state, action) => {
+        state.loadMoreStatus = 'succeeded';
+        state.moviesAndShows.push(...action.payload);
+      })
+      .addCase(loadMoreTopRated.rejected, (state, action) => {
+        state.loadMoreStatus = 'failed';
+        state.loadMoreError = action.error.message;
       });
   },
 });
+
+export const {clearArray} = topRatedSlice.actions;
 
 export const selectTopRated = ({topRated}) => topRated;
 export const selectDetails =

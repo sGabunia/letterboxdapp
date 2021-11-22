@@ -10,11 +10,10 @@ const initialState = {
 export const fetchMovieDetails = createAsyncThunk(
   'movie/fetchMovieDetails',
   async id => {
-    console.log('fetch');
     const movieDetails = await getMovies.getMovieDetails(id);
     const movieCast = await getMovies.getMovieCast(id);
     const movieReviews = await getMovies.getMovieReviews(id);
-    console.log(movieDetails);
+
     return {
       movieDetails,
       movieCast,
@@ -32,8 +31,6 @@ const movieDetailsSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(fetchMovieDetails.fulfilled, (state, action) => {
-        console.log(action.payload);
-
         state.status = 'succeeded';
         state.movie = action.payload;
       })

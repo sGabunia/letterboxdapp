@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {
@@ -12,7 +12,11 @@ import {
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import {fetchTopRated, selectTopRated} from '../features/movies/topRatedSlice';
+import {
+  fetchTopRated,
+  loadMoreTopRated,
+  selectTopRated,
+} from '../features/movies/topRatedSlice';
 import colors from '../utils/colors';
 
 import AppHeaderText from '../components/Text/AppHeaderText';
@@ -21,12 +25,17 @@ import AppMainText from '../components/Text/AppMainText';
 const CategoriesScreen = ({route, navigation}) => {
   const dispatch = useDispatch();
   const {category} = route.params;
-  const {moviesAndShows, status, error} = useSelector(selectTopRated);
+  const [index, setIndex] = useState(2);
+  const {moviesAndShows, status} = useSelector(selectTopRated);
 
   useEffect(() => {
-    dispatch(fetchTopRated(category));
+    dispatch(fetchTopRated({category}));
   }, [category, dispatch]);
-  console.log(category);
+
+  const loadMoreData = () => {
+    dispatch(loadMoreTopRated({category, index}));
+    setIndex(prev => prev + 1);
+  };
 
   const screenSelect = category === 'movie' ? 'MovieDetails' : 'TvShowDetails';
 
@@ -37,6 +46,14 @@ const CategoriesScreen = ({route, navigation}) => {
       itemId,
       title,
     });
+  };
+
+  const renderLoadMore = () => {
+    return (
+      <View>
+        <ActivityIndicator color="#fff" />
+      </View>
+    );
   };
 
   if (isLoading) {
@@ -51,6 +68,9 @@ const CategoriesScreen = ({route, navigation}) => {
     <View style={styles.wrapper}>
       <FlatList
         data={moviesAndShows}
+        onEndReached={() => loadMoreData(index)}
+        ListFooterComponent={renderLoadMore()}
+        initialNumToRender={20}
         renderItem={({item}) => {
           const releaseYear = item.release_date || item.first_air_date;
           const title = item.name || item.title;

@@ -11,11 +11,10 @@ const getPopularMovies = async () => {
 };
 
 const getMovieDetails = async movie_id => {
-  console.log('details');
   const response = await axios.get(
     `${BASE_URL}movie/${movie_id}?api_key=${apiKey}&language=en-US`,
   );
-  console.log(response);
+
   return response.data;
 };
 
@@ -33,9 +32,9 @@ const getMovieReviews = async movie_id => {
   return response.data;
 };
 
-const getTopRated = async category => {
+const getTopRated = async (category, page = 1) => {
   const response = await axios.get(
-    `${BASE_URL}${category}/top_rated?api_key=${apiKey}&language=en-US&page=1`,
+    `${BASE_URL}${category}/top_rated?api_key=${apiKey}&language=en-US&page=${page}`,
   );
   return response.data;
 };
